@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Data Form</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .sidebar {
+    width: 10%;
+    background: #002F6C;
+    color: white;
+    height: 100vh;
+    padding-top: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-start; 
+    margin-top: 60px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    cursor: pointer;
+    text-align: center;
+}
+
+.sidebar ul li i {
+    font-size: 24px; 
+    margin-bottom: 5px;
+}
+
+.sidebar ul li:hover {
+    background: #001F4C;
+}
+
+.sidebar ul li span {
+    font-size: 14px; 
+}
+
+.sidebar ul li.active {
+    background: #001F4C;
+}
+
+        .main-content {
+            margin-left: 150px;
+            padding: 20px;
+            width: 90%;
+        }
+        .top-buttons {
+    display: flex;
+    gap: 15px; 
+    padding-left: 130px;
+}
+
+.top-buttons button {
+    background: white;
+    color: #002F6C;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    position: relative;
+    font-weight: bold;
+}
+
+.top-buttons button::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background: #002F6C;
+    border-radius: 2px;
+}
+
+
+.top-buttons button:first-child {
+    background: #002F6C;
+    color: white;
+}
+
+.top-buttons button:first-child::after {
+    display: none; 
+}
+
+
+.top-buttons button:first-child {
+    background: #002F6C;
+    color: white;
+}
+
+.top-buttons button:first-child::after {
+    display: none; 
+}
+
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: auto;
+        }
+        h2 {
+            text-align: left;
+            color: #002F6C;
+        }
+        .upload-section {
+    text-align: center;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+    background: #ecf0f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-box {
+    border: 2px dashed #002F6C;
+    padding: 40px; 
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%; 
+    text-align: center;
+}
+
+.upload-box div {
+    flex: 1;
+    margin: 0 20px; 
+}
+
+.upload-box .fas {
+    font-size: 30px;
+    margin-bottom: 5px; 
+}
+
+.upload-box button {
+    background-color: #001F4C;
+    color: white;
+    padding: 12px 20px; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+        }
+        .mobile-input {
+            display: flex;
+            align-items: center;
+        }
+        .mobile-input span {
+            background: #ddd;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px 0 0 4px;
+        }
+        .mobile-input input {
+            border-radius: 0 4px 4px 0;
+            flex-grow: 1;
+        }
+        .top-buttons{
+            padding-left: 10px;
+        }
+        .buttons {
+            text-align: center;
+            margin-top: 20px;
+            border-top: 2px solid #ccc;
+            padding: 10px;
+
+        }
+        .buttons button {
+    padding: 10px 15px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.buttons button[type="submit"] {
+    background-color: #002F6C;
+    color: white;
+    border: none;
+}
+
+.buttons button[type="reset"],
+.buttons button[type="button"] {
+    background-color: white;
+    color: #002F6C;
+    border: 2px solid #002F6C;
+}
+
+        .course-section {
+            display: none;
+            background: rgb(240, 241, 253);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .grid-container > div {
+            display: flex;
+            flex-direction: column;
+        }
+        .guardian-container {
+            background: rgb(240, 241, 253);
+    padding: 20px; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    margin-bottom: 30px; 
+}
+
+.guardian-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px; 
+}
+.guardian-grid div {
+    display: flex;
+    flex-direction: column;
+}
+
+.guardian-grid input, .guardian-grid select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.mobile-input {
+    display: flex;
+    align-items: center;
+}
+
+.mobile-input span {
+    background: #ddd;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+}
+
+.mobile-input input {
+    flex-grow: 1;
+    border-radius: 0 4px 4px 0;
+}
+
+        .course-header {
+            background-color: #002F6C;
+            color: white;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .icon {
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .outer-container {
+        border: 2px solid #ccc; /* Added border */
+        border-radius: 10px;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding-left: 0px;
+    }
+.header-section {
+    padding-left: 10px;
+    text-align: left;
+    background: #ffffff;
+    color: #002F6C;
+    border-radius: 8px 8px 0 0;
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 2px solid #ccc; /* Light border for separation */
+    margin-bottom: 30px;
+
+}
+
+.main-content {
+    margin-left: 12%;
+    padding: 20px;
+    width: 88%;
+    margin-top: 70px;
+}
+
+.navbar {
+    width: 100%;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-bottom: 2px solid #ccc;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 60px;
+    z-index: 1000;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.monitor-btn {
+    background: #002F6C;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #002F6C;
+}
+input[type="text"], 
+input[type="email"], 
+input[type="password"], 
+input[type="number"], 
+input[type="tel"], 
+input[type="date"], 
+select {
+    width: 100%; 
+    max-width: 700px; 
+    padding: 8px; 
+    border: 1px solid #ccc;
+    border-radius: 4px; 
+    box-sizing: border-box; 
+}
+.course-footer {
+    display: flex;
+    justify-content: space-between; 
+    padding-top: 5px;
+}
+.align-right {
+    margin-left: auto;
+    font-size: 16px;
+    color: #002F6C; 
+    cursor: pointer; 
+    text-decoration: underline;
+}
+.course-footer1 {
+    display: flex;
+    justify-content: space-between; 
+    padding-top: 5px;
+}
+.align-right1 {
+    margin-left: auto;
+    font-size: 16px;
+    color: #002F6C; 
+    cursor: pointer; 
+    text-decoration: underline;
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="your-logo.png" alt="Logo">
+        </div>
+        <div class="nav-buttons">
+            <button class="monitor-btn">Monitor Device</button>
+            <img src="profile-icon.png" alt="Profile" class="profile-icon">
+        </div>
+    </div>
+    
+    <div class="sidebar">
+        <ul>
+            <li><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></li>
+            <li><i class="fas fa-school"></i><span>My Campus</span></li>
+            <li><i class="fas fa-users"></i><span>Employee</span></li>
+            <li class="active"><i class="fas fa-user-graduate"></i><span>Admission</span></li>
+            <li><i class="fas fa-book"></i><span>Curriculum</span></li>
+            <li><i class="fas fa-calendar-alt"></i><span>Timetable</span></li>
+            <li><i class="fas fa-chalkboard-teacher"></i><span>Lesson</span></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="top-buttons">
+            <button><i class="fas fa-users"></i> Student List</button>
+            <button><i class="fas fa-sync-alt"></i> Session Move</button>
+            <button><i class="fas fa-pencil-alt"></i> Status Update</button>
+            <button><i class="fas fa-key"></i> Student Reset Password</button>
+            <button><i class="fas fa-id-card"></i> Assign Roll-Number</button>
+        </div>
+        <br>
+        <div class="outer-container">
+            <div class="header-section">
+                <h2>Admission / Student List</h2>
+            </div>
+        <div class="container">
+            <h2>Create Student Data</h2>
+            <div class="upload-section" style="display: flex; justify-content: center; align-items: center; height: 100%; padding: 15px;">
+                <div class="upload-box" style="display: flex; align-items: center; justify-content: space-between; padding: 10px; border: 2px dashed #002F6C; border-radius: 5px; width: 95%; height: 95%; text-align: center;">
+                    <div style="flex: 1; margin-right: 10px;">
+                        <i class="fas fa-cloud-upload-alt" style="font-size: 30px; margin-bottom: 5px;"></i><br>
+                        Drag and drop files here
+                    </div>
+                    <div style="font-size: 16px; margin: 0 10px;">
+                        OR
+                    </div>
+                    <div style="flex: 1; margin-left: 10px;">
+                        <button style="background-color: #001F4C; color: white; padding: 10px;">UPLOAD</button>
+                    </div>
+                </div>
+            </div>
+            <form>
+                <label>Student Name</label>
+                <input type="text" placeholder="Ex: Nikhil">
+                <label>Email ID</label>
+                <input type="email" placeholder="Ex: nikhil@email.com">
+                <label>Mobile Number <span style="color: red;">*</span></label>
+                <div class="mobile-input"><span>+91</span><input type="text" placeholder="Ex: 9876543210"></div>
+                <label>Gender  <span style="color: red;">*</span></label>
+                <select><option>Select</option></select>
+                <label>Date of Birth</label>
+                <input type="date">
+                
+                <h2 class="course-header"><i class="fas fa-chevron-down"></i>Course Details
+                <span class="icon">+</span>
+            </h2>
+                <label>Campus  <span style="color: red;">*</span></label>
+                <select id="campusSelect" onchange="toggleCourseDetails()">
+                    <option>Select</option>
+                    <option value="campus1">Campus 1</option>
+                    <option value="campus2">Campus 2</option>
+                </select>
+
+                <div id="courseDetails" class="course-section">
+                    <div class="grid-container">
+                        <div>
+                            <label>Course  <span style="color: red;">*</span></label>
+                            <select><option>Select</option></select>
+                        </div>
+                        <div>
+                            <label>Roll Number  <span style="color: red;">*</span></label>
+                            <input type="text" placeholder="Ex: 11">
+                        </div>
+                        <div>
+                            <label>Batch1  <span style="color: red;">*</span></label>
+                            <select><option>Select</option></select>
+                        </div>
+                        <div>
+                            <label>Session1  <span style="color: red;">*</span></label>
+                            <select><option>Select</option></select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="course-footer1">
+                        <span class="align-right1">Add another batch from same course</span>
+                    </div>
+                </div>
+                <br><br>
+                <div class="course-footer">
+                    <span class="align-right">Add another course from same campus</span>
+                </div>
+                
+            
+                <h2 class="course-header"><i class="fas fa-chevron-down"></i>Guardian Details
+                    <span class="icon">+</span>
+                </h2>
+                <div class="guardian-container">
+                    <div class="guardian-grid">
+                        <div>
+                            <label>Relation</label>
+                            <select><option>Select</option></select>
+                        </div>
+                        <div>
+                            <label>Name</label>
+                            <input type="text" placeholder="Ex: Ramya">
+                        </div>
+                        <div>
+                            <label>Email ID  <span style="color: red;">*</span></label>
+                            <input type="email" placeholder="Ex: father@mail.com">
+                        </div>
+                        <div>
+                            <label>Mobile Number  <span style="color: red;">*</span></label>
+                            <div class="mobile-input"><input type="text" placeholder="9876543210"></div>
+                        </div>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+        <div class="buttons">
+            <button type="submit">SUBMIT</button>
+            <button type="reset">RESET</button>
+            <button type="button">BACK</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleCourseDetails() {
+            var courseDetails = document.getElementById('courseDetails');
+            var campusSelect = document.getElementById('campusSelect').value;
+            if (campusSelect !== 'Select') {
+                courseDetails.style.display = 'block';
+            } else {
+                courseDetails.style.display = 'none';
+            }
+        }
+    </script>
+    </div>
+    </div>
+</body>
+</html>
